@@ -1,0 +1,114 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "foodness-fnesev-20190714150742-authRole",
+			"UnauthRoleArn": "arn:aws:iam::688154103714:role/foodness-fnesev-20190714150742-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::688154103714:role/foodness-fnesev-20190714150742-authRole",
+			"Region": "us-west-2",
+			"DeploymentBucketName": "foodness-fnesev-20190714150742-deployment",
+			"UnauthRoleName": "foodness-fnesev-20190714150742-unauthRole",
+			"StackName": "foodness-fnesev-20190714150742",
+			"StackId": "arn:aws:cloudformation:us-west-2:688154103714:stack/foodness-fnesev-20190714150742/cd33ee50-a683-11e9-85a3-028e369bfbbe"
+		}
+	},
+	"storage": {
+		"dynamo2aea8308": {
+			"service": "DynamoDB",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/foodness-fnesev-20190714150742-deployment/amplify-cfn-templates/storage/dynamo2aea8308-cloudformation-template.json",
+				"logicalId": "storagedynamo2aea8308"
+			},
+			"lastPushTimeStamp": "2019-07-14T22:17:29.751Z",
+			"output": {
+				"PartitionKeyName": "id",
+				"Region": "us-west-2",
+				"Arn": "arn:aws:dynamodb:us-west-2:688154103714:table/posts-fnesev",
+				"StreamArn": "arn:aws:dynamodb:us-west-2:688154103714:table/posts-fnesev/stream/2019-07-14T22:10:44.540",
+				"PartitionKeyType": "S",
+				"Name": "posts-fnesev"
+			},
+			"lastPushDirHash": "wXtdZKNV3a9V4o2tOCEttL+8OXM="
+		}
+	},
+	"function": {
+		"getposts": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true,
+			"dependsOn": [
+				{
+					"category": "storage",
+					"resourceName": "dynamo2aea8308",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				}
+			],
+			"lastBuildTimeStamp": "2019-07-14T22:10:21.159Z",
+			"lastPackageTimeStamp": "2019-07-14T22:10:24.407Z",
+			"distZipFilename": "getposts-2b476b64794d624f377a-build.zip",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/foodness-fnesev-20190714150742-deployment/amplify-cfn-templates/function/getposts-cloudformation-template.json",
+				"logicalId": "functiongetposts"
+			},
+			"lastPushTimeStamp": "2019-07-14T22:17:29.751Z",
+			"output": {
+				"Region": "us-west-2",
+				"Arn": "arn:aws:lambda:us-west-2:688154103714:function:getposts-fnesev",
+				"Name": "getposts-fnesev",
+				"LambdaExecutionRole": "foodnessLambdaRole413f3f16-fnesev"
+			},
+			"lastPushDirHash": "nSTtirpTSvI7ZqZb0p0WO+PPqeE="
+		}
+	},
+	"api": {
+		"api06d2a5da": {
+			"service": "API Gateway",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [
+				{
+					"category": "function",
+					"resourceName": "getposts",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				}
+			],
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/foodness-fnesev-20190714150742-deployment/amplify-cfn-templates/api/api06d2a5da-cloudformation-template.json",
+				"logicalId": "apiapi06d2a5da"
+			},
+			"lastPushTimeStamp": "2019-07-14T22:17:29.757Z",
+			"output": {
+				"ApiName": "api06d2a5da",
+				"RootUrl": "https://6aauaumg23.execute-api.us-west-2.amazonaws.com/fnesev"
+			},
+			"lastPushDirHash": "Qh2kf78Vuda5kAJBpZH2Bi/ol+Q="
+		}
+	},
+	"auth": {
+		"foodness3ca0e0f2": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/foodness-fnesev-20190714150742-deployment/amplify-cfn-templates/auth/foodness3ca0e0f2-cloudformation-template.yml",
+				"logicalId": "authfoodness3ca0e0f2"
+			},
+			"lastPushTimeStamp": "2019-07-14T22:17:29.758Z",
+			"output": {
+				"AppClientSecret": "udsu8k0vplhoo874emm8f24lmlv5a5igd73bd7pulfn9c51tvsc",
+				"UserPoolId": "us-west-2_5yI1A974i",
+				"AppClientIDWeb": "603f83vrmjmecu8dlsmc5t2uch",
+				"AppClientID": "4fc556p44aplevslaa6nauvtai",
+				"IdentityPoolId": "us-west-2:0e00e4ef-33b6-4d2c-884d-bde10cfbcf12",
+				"IdentityPoolName": "foodness3ca0e0f2_identitypool_3ca0e0f2__fnesev",
+				"UserPoolName": "foodness3ca0e0f2_userpool_3ca0e0f2"
+			},
+			"lastPushDirHash": "YoRnZiYpg0yvdUvAqzxKDBdG0xU="
+		}
+	}
+}

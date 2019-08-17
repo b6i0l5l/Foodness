@@ -1,0 +1,34 @@
+{
+    "paths": [
+        {
+            "name": "/posts",
+            "lambdaFunction": "getposts",
+            "privacy": {
+                "open": true
+            }
+        }
+    ],
+    "resourceName": "api06d2a5da",
+    "apiName": "api06d2a5da",
+    "functionArns": [
+        {
+            "lambdaFunction": "getposts"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "foodness-fnesev-20190714150742-authRole",
+        "unAuthRoleName": "foodness-fnesev-20190714150742-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "getposts",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
